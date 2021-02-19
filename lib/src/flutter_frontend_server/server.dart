@@ -28,11 +28,8 @@ import '../transformer/aop/inspector_transformer.dart';
 /// Wrapper around [FrontendCompiler] that adds [widgetCreatorTracker] kernel
 /// transformation to the compilation.
 class _FlutterFrontendCompiler implements frontend.CompilerInterface {
-  final frontend.CompilerInterface _compiler;
 
-  final AspectdAopTransformer aspectdAopTransformer = AspectdAopTransformer();
-  final InspectorTransformer inspectorTransformer = InspectorTransformer();
-
+  /// 前端编译器注入
   _FlutterFrontendCompiler(StringSink output,
       {bool unsafePackageSerialization,
       bool useDebuggerModuleNames,
@@ -43,6 +40,13 @@ class _FlutterFrontendCompiler implements frontend.CompilerInterface {
             useDebuggerModuleNames: useDebuggerModuleNames,
             emitDebugMetadata: emitDebugMetadata,
             unsafePackageSerialization: unsafePackageSerialization);
+
+  final frontend.CompilerInterface _compiler;
+
+  final AspectdAopTransformer aspectdAopTransformer = AspectdAopTransformer();
+  final InspectorTransformer inspectorTransformer = InspectorTransformer();
+
+
 
   @override
   Future<bool> compile(String filename, ArgResults options,
