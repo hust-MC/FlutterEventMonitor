@@ -77,7 +77,7 @@ rm bin/cache/flutter_tools.stamp
 ```
 As flutter_tools doesn't support hooks now, the aspectd.patch is necessary currently. As flutter is evolving, this patch might fail sometimes. However, It would be simple to resolve the conflicts as AspectD only adds two hooks when building dill.  See https://github.com/alibaba-flutter/aspectd/issues/5 for more.
 
-If you want to customize the aspectd_impl package, edit aspectdImplPackageRelPath(aspectd_impl package relative path to the example's pubspec.yaml) and aspectdImplPackageName(aspectd_impl package folder name and main entry file name) defined in path-for-flutter-git-repo/flutter/packages/flutter_tools/lib/src/aspectd.dart. 
+If you want to customize the aspectd_impl package, edit aspectdImplPackageRelPath(aspectd_impl package relative path to the example's pubspec.yaml) and aspectdImplPackageName(aspectd_impl package folder name and main entry file name) defined in path-for-flutter-git-repo/flutter/packages/flutter_tools/lib/src/aspectd.dart.
 
 ```dart
 const String aspectdImplPackageRelPath = '.';
@@ -91,7 +91,7 @@ If you're using example with an aspectd_impl package not generated locally, reme
 ## 5. Implement your own transform if needed
 As said above, Aspectd is not only an AOP framework , it also provides a dill transformer container. You can implement your own transformer (say pluginDemo) over Aspectd following steps below:
 
-a. Declare pluginDemo in the plugins section of config.yaml. 
+a. Declare pluginDemo in the plugins section of config.yaml.
 
 b. Run `dart bin/generate_plugins_entry.dart` to generate a unified folder structure located in lib/src/plugins/pluginDemo.
 
@@ -151,7 +151,7 @@ class CallDemo{
 }
 ```
 
-In this case, notice that @Aspect() is needed to mark a class so that the aspectd will know that this class contains AspectD annotation informations. 
+In this case, notice that @Aspect() is needed to mark a class so that the aspectd will know that this class contains AspectD annotation informations.
 @pragma("vm:entry-point") is needed so that the class/function will not be removed by tree-shaking.
 For @Call("package:app/calculator.dart","Calculator","-getCurTime"), there are several things to know. Now call/execute/inject accept three positional parameters, package name, class name(If the procedure is a library method, this part is empty string), and function name. The function name may have a prefix('-' or '+'), '-' refers to instance method while '+' refers to library static method(like main) and class method. There is also a named parameter lineNum for inject so that AspectD know which line to inject a code snippet. The lineNum parameter is 1 based and code snippet would be injected before that line.
 
@@ -269,7 +269,7 @@ After that, the original build function will look like below:
 ```
 Notice that `//Aspectd Ignore` part when using injection, we need to compile the aop package successfully so we need to declare the instance/context variable. However, when injecting to origin function (build in this case), variable declaration
 ```dart
-Object instance; //Aspectd Ignore 
+Object instance; //Aspectd Ignore
 Object context; //Aspectd Ignore
 ```
 would be discarded to avoid overring the original one.
@@ -289,7 +289,7 @@ Because of the dart compilation implementation, there are several points to pay 
 
 # Contact
 
-If you meet any problem when using AspectD, file a issue or contact me directly. 
+If you meet any problem when using AspectD, file a issue or contact me directly.
 
 [Contact Author](mailto:kang.wang1988@gmail.com)
 # FlutterEventMonitor
