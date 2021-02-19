@@ -181,13 +181,11 @@ class InjectDemo{
     var current = element;
 
     element.visitAncestorElements((parent) {
-      // print("callback getPath : ${parent.widget.toStringShort()}");
 
       var count = 0;
       parent.visitChildElements((child) {
         if (current == child) {
           if (isLocalWidget(current)) {
-            print('current is user widget : ${current.widget}');
             buffer.write(current.widget.toStringShort());
             buffer.write("[$count]/");
           }

@@ -70,8 +70,7 @@ void _maybeAddCreationLocationArgument(
     //
     // The only case in which it shouldn't exist is if the function has optional
     // positional parameters so it cannot have optional named parameters.
-    if (function.requiredParameterCount !=
-        function.positionalParameters.length) {
+    if (function.requiredParameterCount != function.positionalParameters.length) {
       return;
     }
   }
@@ -265,15 +264,12 @@ class WidgetCreatorTracker {
       _hasCreationLocationClass.enclosingLibrary,
     );
     final Field locationField = Field(fieldName,
-        type: InterfaceType(_locationClass, clazz.enclosingLibrary.nonNullable),
+        type: const DynamicType(),
         isFinal: true,
         reference: clazz.reference.canonicalName
             ?.getChildFromFieldWithName(fieldName)
             ?.reference);
     clazz.addMember(locationField);
-
-    print('class is : $clazz');
-    print('location field is : ${locationField.toString()}');
 
     final Set<Constructor> _handledConstructors = Set<Constructor>.identity();
 
@@ -281,13 +277,10 @@ class WidgetCreatorTracker {
       if (!_handledConstructors.add(constructor)) {
         return;
       }
-      assert(!_hasNamedParameter(
-        constructor.function,
-        _creationLocationParameterName,
-      ));
+      assert(!_hasNamedParameter(constructor.function, _creationLocationParameterName,));
       final VariableDeclaration variable = VariableDeclaration(
         _creationLocationParameterName,
-        type: InterfaceType(_locationClass, clazz.enclosingLibrary.nonNullable),
+        type: const DynamicType(),
       );
       if (!_maybeAddNamedParameter(constructor.function, variable)) {
         return;
@@ -418,7 +411,7 @@ class WidgetCreatorTracker {
         _maybeAddNamedParameter(
           procedure.function,
           VariableDeclaration(_creationLocationParameterName,
-              type: InterfaceType(_locationClass, clazz.enclosingLibrary.nonNullable),
+              type: const DynamicType(),
               isRequired: clazz.enclosingLibrary.isNonNullableByDefault),
         );
       }
@@ -440,11 +433,9 @@ class WidgetCreatorTracker {
 
       final VariableDeclaration variable = VariableDeclaration(
           _creationLocationParameterName,
-          type:
-              InterfaceType(_locationClass, clazz.enclosingLibrary.nonNullable),
+          type: const DynamicType(),
           isRequired: clazz.enclosingLibrary.isNonNullableByDefault);
-      if (_hasNamedParameter(
-          constructor.function, _creationLocationParameterName)) {
+      if (_hasNamedParameter(constructor.function, _creationLocationParameterName)) {
         return;
       }
       if (!_maybeAddNamedParameter(constructor.function, variable)) {
