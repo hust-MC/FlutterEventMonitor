@@ -206,7 +206,6 @@ class _WidgetTransformer extends Transformer {
 /// parameter.
 class WidgetCreatorTracker {
   Class _widgetClass;
-  Class _locationClass;
 
   /// Marker interface indicating that a private _location field is
   /// available.
@@ -231,8 +230,6 @@ class WidgetCreatorTracker {
             for (Class class_ in library.classes) {
               if (class_.name == 'UserWidget') {
                 _hasCreationLocationClass = class_;
-              } else if (class_.name == 'LocInfo') {
-                _locationClass = class_;
               }
             }
           }
@@ -241,7 +238,6 @@ class WidgetCreatorTracker {
     }
     print('widget class is : $_widgetClass');
     print('user class is : $_hasCreationLocationClass');
-    print('location class is : $_locationClass');
   }
 
   /// Modify [clazz] to add a field named [_locationFieldName] that is the
@@ -309,19 +305,6 @@ class WidgetCreatorTracker {
           locationField,
           VariableGet(variable),
         ));
-        // TODO(jacobr): add an assert verifying the locationField is not
-        // null. Currently, we cannot safely add this assert because we do not
-        // handle Widget classes with optional positional arguments. There are
-        // no Widget classes in the flutter repo with optional positional
-        // arguments but it is possible users could add classes with optional
-        // positional arguments.
-        //
-        // constructor.initializers.add(new AssertInitializer(new AssertStatement(
-        //   new IsExpression(
-        //       new VariableGet(variable), _locationClass.thisType),
-        //   conditionStartOffset: constructor.fileOffset,
-        //   conditionEndOffset: constructor.fileOffset,
-        // )));
       }
     }
 

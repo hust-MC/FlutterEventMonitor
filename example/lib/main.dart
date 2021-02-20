@@ -182,6 +182,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 onTap: () {
                   onRandomDemo();
                 }),
+            // GestureDetector(
+            //     child: Image.asset("icon.png"),
+            //     onTap: () {
+            //       print('icon click');
+            //     }),
             Listener(
               child: Container(
                 alignment: Alignment.center,

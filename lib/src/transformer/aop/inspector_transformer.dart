@@ -10,7 +10,7 @@ class InspectorTransformer extends FlutterProgramTransformer {
 
   @override
   void transform(Component component) {
-    print('Start Inspector Transformer444');
+    print('Start Inspector Transformer555');
     WidgetCreatorTracker().transform(component, component.libraries);
   }
 }
