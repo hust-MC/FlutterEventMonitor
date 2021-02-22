@@ -258,6 +258,10 @@ class InjectDemo{
     var current = element;
 
     element.visitAncestorElements((parent) {
+      if (current.widget.toString() == curPageInfo.curScreenPage.toString()) {
+        buffer.write(current.widget.toStringShort());
+        return false;
+      }
 
       var count = 0;
       parent.visitChildElements((child) {
